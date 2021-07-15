@@ -11,11 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $children = auth()->user()->children()->get();
-//        $a = $this->buildTree(auth()->user()->children()->get(),auth()->user()->id);
-        $nestable = User::nestable(\auth()->user()->children()->get());
-dd($nestable);
-//        return view('dashboard.index',compact('children'));
+        $childrens = User::nestable(\auth()->user()->children()->get());
+        return view('dashboard.index',compact('childrens'));
     }
 
     public function invite()
@@ -23,20 +20,5 @@ dd($nestable);
         return view('dashboard.invite');
     }
 
-    public function buildTree($elements,$parentId)
-    {
-        $branch = array();
-        foreach ($elements as $element) {
-            if ($element->parent_id == $parentId) {
-                $children = $this->buildTree($elements, $element->id);
-                if ($children) {
-                    $element['children'] = $children;
-                }
-                $branch[$element->id] = $element;
-                unset($elements[$element->id]);
-            }
-        }
-        return $branch;
-    }
 
 }

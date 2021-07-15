@@ -9,26 +9,11 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="{{asset('css/main.css')}}">
 </head>
 <body>
 
-<header class="header" id="header">
-    <div class="col text-end">
-        {{auth()->user()->name}}
-    </div>
-</header>
-
-
-<div class="l-navbar" id="nav-bar">
-@include('layout.includes.navbar')
-</div>
-
-<!--Container Main start-->
-<div class="height-100 bg-light">
-    <div class="container">
-        @yield('content')
-    </div>
+<div class="container">
+    @yield('content')
 </div>
 
 

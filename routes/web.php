@@ -14,11 +14,12 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/invite', [DashboardController::class, 'invite'])->name('dashboard.invite');
+    Route::get('/user-add', [AuthController::class, 'add_user'])->name('user-add');
+    Route::post('/create_user', [AuthController::class, 'create_user'])->name('create_user');
+    Route::get('/create-pdf', [\App\Http\Controllers\PdfController::class, 'createPDF'])->name('createPDF');
 
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/invite', [DashboardController::class, 'invite'])->name('dashboard.invite');
-    });
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

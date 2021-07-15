@@ -34,17 +34,17 @@ class User extends Authenticatable
 
     public function children()
     {
-        return $this->hasMany(User::class, 'parent_id')->with('children');
+        return $this->hasMany(self::class,'parent_id');
     }
 
-    public static function nestable($categories) {
-       foreach ($categories as $category) {
-           if (!$category->children->isEmpty()) {
-               $category->children = self::nestable($category->children);
+    public static function nestable($users) {
+        foreach ($users as $user) {
+            if (!$user->children->isEmpty()) {
+                $user->children = self::nestable($user->children);
             }
         }
 
-        return $categories;
+        return $users;
     }
 
 }

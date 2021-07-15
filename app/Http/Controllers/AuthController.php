@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware("guest");
-//    }
 
     public function login()
     {
@@ -23,6 +19,11 @@ class AuthController extends Controller
     public function registration()
     {
         return view('auth.register');
+    }
+
+    public function add_user()
+    {
+        return view('auth.add_user');
     }
 
     public function register_user(RegisterRequest $request)
@@ -40,6 +41,19 @@ class AuthController extends Controller
             'password' => Hash::make($data['password'])
         ]);
         return redirect("dashboard")->with('success','Successfully logged-in!');
+    }
+
+    public function create_user(RegisterRequest $request)
+    {
+        $data = $request->all();
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'parent_id' => Auth::user()->id,
+            'password' => Hash::make($data['password'])
+        ]);
+        return redirect('dashboard')->with('success','Successfully Add User!');
     }
 
     public function login_user(LoginRequest $request)
